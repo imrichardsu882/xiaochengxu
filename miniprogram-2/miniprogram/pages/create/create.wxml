@@ -1,0 +1,40 @@
+<view class="container">
+  <view class="title">{{isEditMode ? '编辑作业' : '创建新作业'}}</view>
+  <view class="form-section">
+    <input class="input-field" placeholder="请输入本次作业的标题" bindinput="onTitleInput" value="{{homeworkTitle}}"/>
+  </view>
+  <view class="form-section">
+    <view class="search-area">
+      <input class="input-field search-input" placeholder="输入英文单词" bindinput="onWordInput" value="{{wordToSearch}}"/>
+      <button class="search-button" bindtap="searchWord">查询</button>
+    </view>
+    <view wx:if="{{searchResult}}" class="result-preview">
+      <view class="result-word">{{searchResult.word}} <text class="result-phonetics">{{searchResult.phonetics}}</text></view>
+      <view wx:for="{{searchResult.meanings}}" wx:key="index" class="result-meanings">
+        <text class="pos">{{item.pos}}</text> {{item.def}}
+      </view>
+      <button class="add-button" bindtap="addWordToHomework">添加到列表</button>
+    </view>
+  </view>
+  <view class="list-title">单词列表 ({{wordListForHomework.length}}个)</view>
+  <view class="form-section" style="padding: 0;">
+    <view class="word-list">
+        <view class="word-item-wrapper" wx:for="{{wordListForHomework}}" wx:key="id">
+            <movable-area class="movable-area">
+                <movable-view class="movable-view" direction="horizontal" x="{{item.x}}" bindchange="onSlide" data-index="{{index}}">
+                    <view class="word-item-content">
+                        <text class="word-text">{{item.word}}</text>
+                        <text class="phonetics-text">{{item.phonetics}}</text>
+                    </view>
+                </movable-view>
+            </movable-area>
+            <view class="delete-btn" bindtap="removeWord" data-word="{{item.word}}">删除</view>
+        </view>
+    </view>
+  </view>
+  <view class="publish-button-container">
+    <button class="publish-button" bindtap="publishHomework">
+      {{isEditMode ? '确认保存' : '确认发布'}}
+    </button>
+  </view>
+</view>

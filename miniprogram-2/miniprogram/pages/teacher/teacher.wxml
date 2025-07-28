@@ -1,0 +1,29 @@
+<view class="container">
+  <view class="header">
+    <text class="page-title">我的课程</text>
+    <view class="switch-role-btn" bindtap="switchRole">切换身份</view>
+  </view>
+
+  <view class="homework-list">
+    <view 
+      wx:for="{{homeworkList}}" 
+      wx:key="id" 
+      class="homework-card" 
+      hover-class="card-hover"
+      bindtap="goToEditPage" 
+      data-id="{{item.id}}" 
+    >
+      <view class="card-content"> 
+        <text class="homework-name">{{item.name}}</text>
+        <text class="word-count">{{item.words.length}} 个单词</text>
+      </view>
+      <view class="delete-button-wrapper" catchtap="onDeleteTap" data-id="{{item.id}}">
+        <text class="delete-icon-text">✕</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="fab-container" bindtap="goToCreatePage" hover-class="fab-hover">
+    <text class="fab-icon-text">+</text>
+  </view>
+</view>
